@@ -1,0 +1,8 @@
+{
+  // Чтобы файлы с русским текстом читались одинаково на всех машинах
+  "files.encoding": "utf8",
+  "files.eol": "\n",
+  // Терминал сам активирует .venv из папки проекта
+  "python.terminal.activateEnvironment": true,
+  "python.terminal.activateEnvInCurrentTerminal": true
+}
