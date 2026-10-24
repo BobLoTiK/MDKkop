@@ -23,11 +23,10 @@ for i in range(30):
 print('Итоговый x:', x)
 
 # График 1: парабола с траекторией градиентного спуска.
-print()
-print('График 1: парабола f(x) = (x − 3)² с траекторией спуска (красные точки).')
 xs = np.linspace(-2, 12, 100)
 plt.plot(xs, f(xs))
 plt.scatter(path, [f(p) for p in path], c='r')
+plt.title('График 1: парабола f(x) = (x − 3)² с траекторией градиентного спуска')
 plt.show()
 
 # Шаг 3. Три learning rate
@@ -39,6 +38,7 @@ print()
 print('График 2: три значения learning rate (0.01, 0.1, 1.1) — как lr влияет на сходимость.')
 lrs = [0.01, 0.1, 1.1]
 fig, axes = plt.subplots(1, 3, figsize=(12, 4))
+fig.suptitle('График 2: три значения learning rate (0.01, 0.1, 1.1)')
 
 for ax, cur_lr in zip(axes, lrs):
     x_cur = 10.0
@@ -49,6 +49,8 @@ for ax, cur_lr in zip(axes, lrs):
     ax.plot(xs, f(xs))
     ax.scatter(path_cur, [f(p) for p in path_cur], c='r', s=20)
     ax.set_title(f'lr = {cur_lr}')
+    ax.set_xlabel('x')
+    ax.set_ylabel('f(x)')
 
 plt.tight_layout()
 plt.show()
@@ -63,6 +65,9 @@ y = 2 * X + 1 + rng.normal(0, 0.5, 50)
 print()
 print('График 3: исходные точки y = 2x + 1 + шум — данные, по которым ищем прямую.')
 plt.scatter(X, y)
+plt.title('График 3: исходные точки y = 2x + 1 + шум')
+plt.xlabel('x')
+plt.ylabel('y')
 plt.show()
 
 # Шаг 5. Loss и градиент
@@ -92,12 +97,18 @@ print('Найденные w и b:', w, b)
 print()
 print('График 4: функция потерь MSE на каждой итерации — должна падать и выравниваться.')
 plt.plot(hist)
+plt.title('График 4: функция потерь MSE по итерациям')
+plt.xlabel('Итерация')
+plt.ylabel('MSE')
 plt.show()
 
 print()
 print('График 5: найденная прямая (красная) поверх исходных точек.')
 plt.scatter(X, y)
 plt.plot(X, w * X + b, 'r')
+plt.title('График 5: найденная прямая поверх данных')
+plt.xlabel('x')
+plt.ylabel('y')
 plt.show()
 
 # Шаг 7. Сверка с sklearn
