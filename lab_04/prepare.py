@@ -15,8 +15,7 @@ if not CSV.exists():
     CSV = HERE / 'titanic.csv'
 OUT_CSV = CSV.parent / 'clean.csv'
 
-# Загружаем таблицу и делаем первичный осмотр: размер, первые строки,
-# информация о типах и базовая статистика.
+# Загружаем таблицу и делаем первичный осмотр: размер, первые строки, информация о типах и базовая статистика.
 df = pd.read_csv(CSV)
 print(df.shape)
 print(df.head())
@@ -29,31 +28,28 @@ kids = df[df['age'] < 12]
 print(len(kids), kids['survived'].mean())
 print("______")
 
-# Очистка данных: заполняем пропуски возраста медианой, порта посадки — наиболее
-# частым значением, удаляем колонку с demasiado большим количеством пропусков.
+# Очистка данных: заполняем пропуски возраста медианой, порта посадки — наиболее частым значением, удаляем колонку с demasiado большим количеством пропусков.
 df['age'] = df['age'].fillna(df['age'].median())
 df['embarked'] = df['embarked'].fillna(df['embarked'].mode()[0])
 df = df.drop(columns=['deck'])
 print(df.isna().sum())
 print("______")
 
-# Группировка: как зависит выживаемость от пола и класса, средний возраст
-# по сочетанию класс + пол.
+# Группировка: как зависит выживаемость от пола и класса, средний возраст по сочетанию класс + пол.
 print(df.groupby('sex')['survived'].mean())
 print(df.groupby('pclass')['survived'].mean())
 print(df.groupby(['pclass', 'sex'])['age'].mean().round(1))
 print("______")
 
-# Визуализация: три графика рядом — возраст, цена билета по классам,
-# доля выживших по полу.
+# Визуализация: три графика рядом — возраст, выживаемость по классам, доля выживших по полу.
 import matplotlib.pyplot as plt
 import seaborn as sns
 
 fig, ax = plt.subplots(1, 3, figsize=(13, 3.5))
 ax[0].hist(df['age'], bins=30)
 ax[0].set_title('Возраст')
-sns.boxplot(x='pclass', y='fare', data=df, ax=ax[1])
-ax[1].set_title('Цена по классу')
+sns.barplot(x='pclass', y='survived', data=df, ax=ax[1])
+ax[1].set_title('Выживаемость по классам')
 sns.barplot(x='sex', y='survived', data=df, ax=ax[2])
 ax[2].set_title('Выживаемость')
 
