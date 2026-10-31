@@ -121,3 +121,44 @@ sklearn_lr.fit(X.reshape(-1, 1), y)
 
 print('sklearn coef_:', sklearn_lr.coef_[0])
 print('sklearn intercept_:', sklearn_lr.intercept_)
+
+
+# Шаг 8. Домашнее повторение занятия
+# Тем же способом, что и прямую, подбираем параболу y = a·x² + b·x + c к точкам.
+rng = np.random.default_rng(1)
+xp = rng.uniform(-2, 3, 40)
+yp = 1.5 * xp ** 2 - 4 * xp + 2 + rng.normal(0, 0.8, 40)
+
+# Функция потерь и градиенты: производная по a домножается на x², по b — на x, по c — на 1.
+def loss_p(a, b, c):
+    return np.mean((a * xp ** 2 + b * xp + c - yp) ** 2)
+
+
+def grads_p(a, b, c):
+    err = a * xp ** 2 + b * xp + c - yp
+    return np.mean(2 * err * xp ** 2), np.mean(2 * err * xp), np.mean(2 * err)
+
+# Спуск с нуля: lr = 0.01, 1000 шагов.
+a = b = c = 0.0
+lr_p, hist_p = 0.01, []
+
+for i in range(1000):
+    da, db, dc = grads_p(a, b, c)
+    a -= lr_p * da
+    b -= lr_p * db
+    c -= lr_p * dc
+    hist_p.append(loss_p(a, b, c))
+
+print()
+print('Парабола: a, b, c =', a, b, c)
+print('MSE параболы:', hist_p[-1])
+
+print()
+print('График 6: найденная парабола (красная) поверх точек — домашнее задание.')
+xs_p = np.linspace(xp.min(), xp.max(), 200)
+plt.scatter(xp, yp)
+plt.plot(xs_p, a * xs_p ** 2 + b * xs_p + c, 'r')
+plt.title('График 6: подобранная парабола a·x² + b·x + c')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.show()
