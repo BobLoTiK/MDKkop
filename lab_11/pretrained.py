@@ -107,6 +107,7 @@ for ax, path in zip(axes, PHOTOS):
     ax.imshow(im); ax.axis('off')
     ax.set_title('\n'.join(f'{w.meta["categories"][i]}: {v:.2f}' for v, i in zip(*top)))
     print(path.name, '→', ', '.join(f'{w.meta["categories"][i]} {v:.2f}' for v, i in zip(*top)))
+fig.suptitle('фото через MobileNetV3-small: топ-3 из ImageNet')
 plt.tight_layout(); plt.savefig(HERE / 'photos.png', bbox_inches='tight'); plt.show()
 
 # Шаг 6. Сравнить с MNIST — 10 мин
