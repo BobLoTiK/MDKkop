@@ -27,6 +27,7 @@ img, label = train[0]; print(img.shape, label)
 fig, ax = plt.subplots(5, 5, figsize=(6, 6))
 for i, a in enumerate(ax.flat):
     a.imshow(train[i][0][0], cmap='gray'); a.set_title(train[i][1]); a.axis('off')
+fig.suptitle('первые 25 картинок MNIST')
 plt.savefig(HERE / 'mnist_grid.png', bbox_inches='tight'); plt.show()
 
 # Шаг 2. DataLoader — 10 мин
@@ -64,7 +65,7 @@ fig, ax = plt.subplots(4, 4, figsize=(7, 8))
 for i, a in enumerate(ax.flat):
     j = wrong[i].item()
     a.imshow(test[j][0][0], cmap='gray'); a.set_title(f'{preds[j].item()} / {trues[j].item()}'); a.axis('off')
-fig.suptitle('предсказано / правда')
+fig.suptitle('16 ошибок сети: в подписи сверху предсказано, снизу правда')
 plt.savefig(HERE / 'errors.png', bbox_inches='tight'); plt.show()
 
 cm = confusion_matrix(trues.numpy(), preds.numpy())
@@ -75,7 +76,7 @@ ax.set_xticks(range(10)); ax.set_yticks(range(10))
 for i in range(10):
     for j in range(10):
         ax.text(j, i, cm[i, j], ha='center', va='center', fontsize=7, color='white' if cm[i, j] > cm.max() / 2 else 'black')
-plt.colorbar(im); plt.savefig(HERE / 'confusion.png', bbox_inches='tight'); plt.show()
+plt.colorbar(im); plt.title('матрица ошибок: где сеть путает цифры'); plt.savefig(HERE / 'confusion.png', bbox_inches='tight'); plt.show()
 print('самые частые путаницы (не диагональ):')
 for i in range(10):
     for j in range(10):
