@@ -1,1 +1,2 @@
-@call "%~dp0bin\lab8.cmd" %*
+@echo off
+python "%~dp0run.py" 8 %*

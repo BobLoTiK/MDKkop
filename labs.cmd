@@ -1,1 +1,2 @@
-@call "%~dp0bin\labs.cmd" %*
+@echo off
+python "%~dp0run.py" list %*
