@@ -29,6 +29,7 @@ for d in [1, 4, 15]:
     print(f'{d:>7}  {np.mean((m.predict(X[:, None]) - y)**2):.4f}  {np.mean((m.predict(Xv[:, None]) - yv)**2):.4f}')
 
 fig, axes = plt.subplots(1, 3, figsize=(12, 3.5))
+fig.suptitle('подгонка полинома разной степени: 1, 4, 15')
 for ax, d in zip(axes, [1, 4, 15]):
     m = make_pipeline(PolynomialFeatures(d), LinearRegression()).fit(X[:, None], y)
     xs = np.linspace(0, 1, 200)
@@ -118,6 +119,7 @@ acc_more = val_acc(more)
 print(f'больше данных: val loss {best_more:.4f}, val acc {acc_more:.3f} (val на 1000 точках)')
 
 fig, axes = plt.subplots(2, 2, figsize=(11, 6))
+fig.suptitle('три лечения переобучения и проверка «больше данных»')
 for ax, (a, b, t) in zip(axes.flat, [
     (tr_es, va_es, 'ранняя остановка'),
     (tr_wd, va_wd, 'weight decay'),
