@@ -46,6 +46,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 fig, ax = plt.subplots(1, 3, figsize=(13, 3.5))
+fig.suptitle('Titanic: распределение возраста и выживаемость по классу и полу')
 ax[0].hist(df['age'], bins=30)
 ax[0].set_title('Возраст')
 sns.barplot(x='pclass', y='survived', data=df, ax=ax[1])
