@@ -33,6 +33,7 @@ for i, ax in enumerate(axes.flat):
     img, label = tr[i]
     ax.imshow((img * std + mean).clamp(0, 1).permute(1, 2, 0))
     ax.set_title(tr.classes[label]); ax.axis('off')
+fig.suptitle('первые 8 картинок train: классы идут подряд, поэтому тут только муравьи')
 plt.tight_layout(); plt.savefig(HERE / 'dataset.png', bbox_inches='tight'); plt.show()
 
 # Шаг 2. С нуля: маленькая CNN на 96×96 — 15 мин
