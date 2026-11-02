@@ -25,6 +25,7 @@ for ax, idx in zip(axes, [0, 7, 15]):
     ax.imshow(pil, cmap='gray')
     ax.set_title(f'правда: {label}\n' + '\n'.join(f'{d}: {p:.2f}' for d, p in top))
     ax.axis('off')
+plt.suptitle('пример работы predict.py: цифра из MNIST и три ответа сети')
 plt.tight_layout()
 plt.savefig(HERE / 'example.png', bbox_inches='tight')
 print('example.png сохранён')
