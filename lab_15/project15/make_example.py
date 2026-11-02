@@ -1,4 +1,5 @@
 """Картинка-пример для README: цифра из MNIST и три ответа сети."""
+import sys
 from pathlib import Path
 
 import numpy as np
@@ -8,6 +9,9 @@ from torchvision import datasets, transforms
 from PIL import Image
 
 from predict import predict
+
+if hasattr(sys.stdout, 'reconfigure'):
+    sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 
 HERE = Path(__file__).resolve().parent
 test = datasets.MNIST(str(HERE / 'data'), train=False, download=True, transform=transforms.ToTensor())
