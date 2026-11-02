@@ -57,6 +57,7 @@ def train(make_opt, steps=300):
         opt.zero_grad(); l = loss_fn(m(Xt).squeeze(1), yt); l.backward(); opt.step(); h.append(l.item())
     return h
 
+plt.title('скорость сходимости: SGD, SGD+momentum, Adam')
 plt.plot(train(lambda p: torch.optim.SGD(p, lr=0.1)), label='SGD')
 plt.plot(train(lambda p: torch.optim.SGD(p, lr=0.1, momentum=0.9)), label='SGD+momentum')
 plt.plot(train(lambda p: torch.optim.Adam(p, lr=0.01)), label='Adam')
@@ -93,4 +94,5 @@ for ax, h in zip(axes, sizes):
     ax.contourf(xx, yy, zz, levels=[-1e9, 0, 1e9], alpha=.3); ax.scatter(Xm[:,0], Xm[:,1], c=ym, edgecolor='k')
     ax.set_title(f'{h} нейронов, accuracy {acc:.3f}')
     print(f'{h} нейронов: accuracy {acc:.3f}')
+fig.suptitle('домашка: сколько нейронов нужно в скрытом слое')
 plt.tight_layout(); plt.savefig(HERE / 'hidden_sizes.png', bbox_inches='tight'); plt.show()
