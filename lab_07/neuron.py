@@ -15,7 +15,7 @@ HERE = Path(__file__).resolve().parent
 
 # Шаг 1. Два класса точек — 10 мин
 X, y = make_blobs(200, centers=2, cluster_std=1.2, random_state=1)
-plt.figure(); plt.scatter(X[:, 0], X[:, 1], c=y); plt.show()
+plt.figure(); plt.title('данные: два облака точек'); plt.scatter(X[:, 0], X[:, 1], c=y); plt.show()
 
 # Шаг 2. Нейрон — 15 мин
 sig = lambda z: 1 / (1 + np.exp(-z))
@@ -34,13 +34,14 @@ for i in range(500):
     p = forward(X); dz = p - y
     w -= lr * X.T @ dz / len(X); b -= lr * dz.mean()
     hist.append(bce(p, y))
-plt.figure(); plt.plot(hist); plt.show()
+plt.figure(); plt.title('функция потерь BCE по шагам обучения'); plt.plot(hist); plt.show()
 print('accuracy:', ((forward(X) > .5) == y).mean())
 
 # Шаг 5. Граница решения — 15 мин
 xx, yy = np.meshgrid(np.linspace(X[:,0].min()-1, X[:,0].max()+1, 200), np.linspace(X[:,1].min()-1, X[:,1].max()+1, 200))
 zz = forward(np.c_[xx.ravel(), yy.ravel()]).reshape(xx.shape)
 plt.figure()
+plt.title('граница решения на двух облаках: прямая справляется')
 plt.contourf(xx, yy, zz, levels=[0, .5, 1], alpha=.3); plt.scatter(X[:,0], X[:,1], c=y)
 plt.savefig(HERE / 'boundary_blobs.png', bbox_inches='tight'); plt.show()
 
@@ -56,6 +57,7 @@ print('accuracy на moons:', ((forward(X) > .5) == y).mean())
 xx, yy = np.meshgrid(np.linspace(X[:,0].min()-1, X[:,0].max()+1, 200), np.linspace(X[:,1].min()-1, X[:,1].max()+1, 200))
 zz = forward(np.c_[xx.ravel(), yy.ravel()]).reshape(xx.shape)
 plt.figure()
+plt.title('граница решения на лунах: одна прямая не справляется')
 plt.contourf(xx, yy, zz, levels=[0, .5, 1], alpha=.3); plt.scatter(X[:,0], X[:,1], c=y)
 plt.savefig(HERE / 'boundary_moons.png', bbox_inches='tight'); plt.show()
 
